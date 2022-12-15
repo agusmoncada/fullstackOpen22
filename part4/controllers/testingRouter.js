@@ -1,5 +1,4 @@
 const testingRouter = require('express').Router()
-const { notEqual } = require('assert')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
