@@ -4,6 +4,7 @@ import { alertVote, removeAlert } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
     const anecdotes = useSelector(state => state.anecdotes)
+    const filter = useSelector(state => state.filter)
     const dispatch = useDispatch()
 
     const handdleVote = (id, content) => {
@@ -14,6 +15,7 @@ const AnecdoteList = () => {
       }, 4000);
     }
 
+   if (filter === 'NOFILTER') {
     return (
         <>
             {anecdotes
@@ -33,6 +35,7 @@ const AnecdoteList = () => {
         </>
        
     )
+  }
 }
 
 export default AnecdoteList
