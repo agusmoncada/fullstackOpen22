@@ -15,27 +15,47 @@ const AnecdoteList = () => {
       }, 4000);
     }
 
-   if (filter === 'NOFILTER') {
+   if (filter === '') {
     return (
-        <>
-            {anecdotes
-            .slice()
-            .sort((a,b) => b.votes - a.votes)
-            .map(anecdote =>
-              <div key={anecdote.id}>
-                <div>
-                  {anecdote.content}
-                </div>
-                <div>
-                  has {anecdote.votes}
-                  <button onClick={() => handdleVote(anecdote.id, anecdote.content)}>vote</button>
-                </div>
+      <>
+          {anecdotes
+          .slice()
+          .sort((a,b) => b.votes - a.votes)
+          .map(anecdote =>
+            <div key={anecdote.id}>
+              <div>
+                {anecdote.content}
               </div>
-            )}
-        </>
-       
+              <div>
+                has {anecdote.votes}
+                <button onClick={() => handdleVote(anecdote.id, anecdote.content)}>vote</button>
+              </div>
+            </div>
+          )}
+      </>
     )
   }
+
+  return (
+    <>
+    {anecdotes
+    .slice()
+    .map(anecdote => 
+        anecdote.content.toLowerCase().includes(filter.toLowerCase())
+        ? <div key={anecdote.id}>
+            <div>
+              {anecdote.content}
+            </div>
+            <div>
+              has {anecdote.votes}
+              <button onClick={() => handdleVote(anecdote.id, anecdote.content)}>vote</button>
+            </div>
+          </div>
+        : null
+        )
+    }
+    </>
+  )
 }
 
 export default AnecdoteList

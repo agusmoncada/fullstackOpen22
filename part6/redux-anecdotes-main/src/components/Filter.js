@@ -1,14 +1,12 @@
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { activeFilter } from "../reducers/filterReducer"
 
 const Filter = () => {
     const dispatch = useDispatch()
-    const state = useSelector(state => state)
     
     const setFilter = (event) => {
         const content = event.target.value
-        dispatch(activeFilter())
-        console.log(content);
+        dispatch(activeFilter(content))
     }
     return (
         <>
@@ -16,6 +14,7 @@ const Filter = () => {
             filter
           <input name='filter'/>  
         </form>
+        {}
         </>
     )
 }
