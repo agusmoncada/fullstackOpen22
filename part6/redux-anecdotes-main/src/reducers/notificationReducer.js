@@ -1,23 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+let timeOut 
+
 const notificationSlice = createSlice({
     name: 'notification',
     initialState: null,
     reducers: {
-        alertVote(state, action) {
-            const newState = `you voted ${action.payload}`
-            return newState
-        },
-        alertAnecdote(state, action) {
-            const newAnecdote = `you added ${action.payload}`
-            return newAnecdote
-        },
-        removeAlert(state, action) {
-            return state = null
+        setNotification(state, action) {
+            return action.payload
         }
     }
 })
 
-export const { alertVote, removeAlert, alertAnecdote } = notificationSlice.actions
+export const { setNotification } = notificationSlice.actions
+
+export const alert = (notification, duration) => {
+    return dispatch => {
+        clearTimeout(timeOut)
+        timeOut = setTimeout(() => {
+            dispatch(setNotification(null))
+        }, duration * 1000)
+        
+        dispatch(setNotification(notification))
+    }
+}
 
 export default notificationSlice.reducer
