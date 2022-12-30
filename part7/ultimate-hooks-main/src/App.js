@@ -18,8 +18,6 @@ const useField = (type) => {
 const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
 
-  // ...
-
   const create = async (resource) => {
     const response = await axios.post(baseUrl, resource)
     setResources(resources.concat(response.data))
@@ -69,7 +67,7 @@ const App = () => {
 
   const handleNoteSubmit = (event) => {
     event.preventDefault()
-    noteService.create({ content: content.value }).then(response => console.log(response))
+    noteService.create({ content: content.value })
   }
  
   const handlePersonSubmit = (event) => {
