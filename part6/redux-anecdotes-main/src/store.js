@@ -1,4 +1,3 @@
-//import { createStore } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 import anecdoteSlice from './reducers/anecdoteReducer'
 import notificationSlice from './reducers/notificationReducer'
