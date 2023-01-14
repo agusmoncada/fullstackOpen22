@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import blogs from "../services/blogs"
 
 const blogSlice = createSlice({
@@ -48,7 +48,6 @@ export const deleteBlog = (blog) => {
 export const addLike = (blog) => {
     return async dispatch => {
         const updatedBlog = await blogs.update(blog)
-        console.log(updatedBlog);
         dispatch(updateBlog(updatedBlog))
     }
 }
