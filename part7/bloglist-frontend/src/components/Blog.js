@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import {  deleteBlog, addLike } from "../reducers/blogsReducer"
 import { alert } from "../reducers/notificationReducer"
+import { Button } from "react-bootstrap"
 
 const Blog = () => {
   const dispatch = useDispatch()
@@ -37,9 +38,9 @@ const Blog = () => {
       <h1>{blog.title} </h1>
       <div >
         <a href="apple.com">{blog.url}</a><br/>
-        {blog.likes}<button className="like" onClick={updateLike}>like</button>
+        {blog.likes}<Button variant='outline-secondary' className="like" onClick={updateLike}>like</Button>
         <p>added by {blog.author}</p>
-        <button onClick={remove}>remove</button>
+        <Button variant="outline-warning" onClick={remove}>remove</Button>
       </div>
     </>  
   )

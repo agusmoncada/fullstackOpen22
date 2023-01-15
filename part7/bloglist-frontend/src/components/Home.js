@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createNewBlog } from '../reducers/blogsReducer'
 import { alert } from '../reducers/notificationReducer'
 import { Link } from 'react-router-dom'
+import { ListGroup } from 'react-bootstrap'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -32,11 +33,13 @@ const Home = () => {
         <Toglabble buttonLabel={'new blog'}>
             <BlogForm createBlog={createBlog} />
         </Toglabble>
-        
+        <ListGroup>
         {blogs
         .slice()
         .sort((a, b) => b.likes - a.likes )
-        .map(blog => <p key={blog.id} style={blogStyle}><Link to={`/blogs/${blog.id}`} >{blog.title}</Link></p> )}
+        .map(blog => <ListGroup.Item key={blog.id}><Link to={`/blogs/${blog.id}`} >{blog.title}</Link></ListGroup.Item> )}
+        </ListGroup>
+        
         </>
     )
 }

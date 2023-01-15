@@ -1,5 +1,6 @@
 import { useState } from "react"
 import PropTypes from 'prop-types'
+import { Button, Form, FormLabel } from "react-bootstrap"
 
 const BlogForm = ({ createBlog }) => {
 
@@ -34,39 +35,39 @@ const BlogForm = ({ createBlog }) => {
     }
 
     return (
-        <form onSubmit={addBlog}>
-            <div>
-            title:
-            <input
+        <Form onSubmit={addBlog}>
+            <Form.Group>
+            <Form.Label>Title: </Form.Label>
+            <Form.Control
                 id="title"
                 type="text"
                 value={title}
                 onChange={handleTitle}
                 placeholder={'write title here..'}
             />
-            </div>
-            <div>
-            author:
-            <input
+            </Form.Group>
+            <Form.Group>
+            <Form.Label>Author: </Form.Label>
+            <Form.Control
                 id="author"
                 type="text"
                 value={author}
                 onChange={handleAuthor}
                 placeholder={'write author here..'}
             />
-            </div>
-            <div>
-            url:
-            <input
+            </Form.Group>
+            <Form.Group>
+            <Form.Label>URL: </Form.Label>
+            <Form.Control
                 id="url"
                 type="text"
                 value={url}
                 onChange={handleUrl}
                 placeholder={'write the url here..'}
             />
-            </div>
-            <button type='submit'>create</button>
-        </form>
+            </Form.Group>
+            <Button type='submit'>create</Button>
+        </Form>
     )
     
 }

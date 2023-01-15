@@ -11,6 +11,8 @@ import { initializeUsers } from './reducers/usersReducer'
 import Home from './components/Home'
 import User from './components/User'
 import Blog from './components/Blog'
+import { Button, Nav, NavItem, Navbar, Container } from 'react-bootstrap'
+import LinkContainer from 'react-router-bootstrap/LinkContainer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -37,15 +39,20 @@ const App = () => {
   }
 
   return (
-    <Router>
+    <Router className='container'>
       <Notification />
-      {user?
-      <div>
-      <Link to={'/'}>blogs</Link>
-      <Link to={'/users'}>users</Link>
-      <>welcome {user.name.toUpperCase()}</>
-      <button onClick={handleLogout}>loguot</button>
-      </div> 
+      {user ?
+      <Navbar bg='dark' variant='dark'>
+        <Container>
+        <Nav variant='pills'>
+          <Button variant='outline-secondary' onClick={handleLogout}>LOGOUT</Button>
+          <Navbar.Text>welcome {user.name.toUpperCase()}</Navbar.Text>
+          <LinkContainer to={'/'}><Nav.Link >BLOGS</Nav.Link></LinkContainer>
+          <LinkContainer to={'/users'}><Nav.Link >USERS</Nav.Link></LinkContainer>
+          
+        </Nav>
+        </Container>
+      </Navbar>
       : null
       }
       
@@ -53,7 +60,7 @@ const App = () => {
       
       <Routes>
         <Route path='/' element={user ? <Home /> : <LoginForm newLogin={newLogin}/>} />
-        <Route path='/users' element={<Users />} />
+        <Route path='/users' element={user ? <Users /> : <LoginForm newLogin={newLogin}/>} />
         <Route path='/users/:id' element={<User />}/>
         <Route path='/blogs/:id' element={<Blog />} />
       </Routes>
