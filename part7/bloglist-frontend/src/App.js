@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Users from './components/Users'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -11,7 +11,7 @@ import { initializeUsers } from './reducers/usersReducer'
 import Home from './components/Home'
 import User from './components/User'
 import Blog from './components/Blog'
-import { Button, Nav, NavItem, Navbar, Container } from 'react-bootstrap'
+import { Button, Nav, Navbar, Container } from 'react-bootstrap'
 import LinkContainer from 'react-router-bootstrap/LinkContainer'
 
 const App = () => {

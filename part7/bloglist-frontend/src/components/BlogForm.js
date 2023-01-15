@@ -1,6 +1,6 @@
 import { useState } from "react"
 import PropTypes from 'prop-types'
-import { Button, Form, FormLabel } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 
 const BlogForm = ({ createBlog }) => {
 

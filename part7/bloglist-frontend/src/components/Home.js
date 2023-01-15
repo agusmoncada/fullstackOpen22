@@ -15,14 +15,6 @@ const Home = () => {
         dispatch(alert(`a new blog ${newBlog.title} by ${newBlog.author} added!`, 5))
     }
 
-    const blogStyle = {
-        paddingTop: 10,
-        paddingLeft: 2,
-        border: 'solid',
-        borderWidth: 1,
-        marginBottom: 5
-      }
-
     if (!blogs) {
         return null
     }

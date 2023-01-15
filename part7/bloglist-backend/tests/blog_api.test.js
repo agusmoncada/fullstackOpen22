@@ -164,6 +164,17 @@ test('a blog without token is not created', async () => {
     expect(response.error.text).toContain("invalid token")
 })
 
+test('a comment can be added', async () => {
+    const newComment = {
+        content: 'a new comment test can be created'
+    }
+
+    await api
+        .post('/api/blogs/639a3a31809dc2632152544e/comments')
+        .send(newComment)
+        .expect(201)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
