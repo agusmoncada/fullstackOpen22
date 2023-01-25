@@ -46,7 +46,7 @@ const typeDefs = gql`
     authorCount: Int!
     allBooks(author: String, genre: String): [Book!]!
     allAuthors: [Author]
-    me: User
+    me: User!
   }
 
   type Mutation {
@@ -76,20 +76,23 @@ const resolvers = {
     bookCount: async () => Book.collection.countDocuments(),
     authorCount: async () => Author.collection.countDocuments(),
     allBooks: async (root, { author, genre }) => {
-        if (author && genre) {
-            const authorID = await Author.findOne({ name: author }).select('_id')
-            return Book.find({ author: authorID, genre: genre }).populate('author')
-        }
-        if (genre) {
-            return Book.find({ genre: genre }).populate('author')
-        }
-        if (author) {
+      if (author && genre) {
           const authorID = await Author.findOne({ name: author }).select('_id')
-          return Book.find({ author: authorID }).populate('author')
-        }
-        return Book.find({}).populate('author')
+          return Book.find({ author: authorID, genre: genre }).populate('author')
+      }
+      if (genre) {
+          return Book.find({ genre: genre }).populate('author')
+      }
+      if (author) {
+        const authorID = await Author.findOne({ name: author }).select('_id')
+        return Book.find({ author: authorID }).populate('author')
+      }
+      return Book.find({}).populate('author')
     },
-    allAuthors: async (root, args) => await Author.find({})
+    allAuthors: async (root, args) => await Author.find({}),
+    me: (root, args, context) => {
+      return context.currentUser
+    }
   }, 
   Author: {
     bookCount: async (root, args) => {
@@ -122,18 +125,18 @@ const resolvers = {
         throw new AuthenticationError("not authenticated")
       }
       const author = await Author.findOne({ name: args.name })
-        if (!author) {
-            return null
-        }
-        author.born = args.setBornTo
-        try {
-          await author.save()
-        } catch (error) {
-          throw new UserInputError(error.message, {
-            invalidArgs: args,
-          })
-        }
-        return author
+      if (!author) {
+          return null
+      }
+      author.born = args.setBornTo
+      try {
+        await author.save()
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+      return author
     },
     createUser: async (root, args) => {
       const user = new User({ username: args.username })
@@ -158,9 +161,6 @@ const resolvers = {
       }
 
       return { value: jwt.sign(userForToken, JWT_SECRET) }
-    },
-    me: (root, args, context) => {
-      return context.currentUser
     }
   }
 }
