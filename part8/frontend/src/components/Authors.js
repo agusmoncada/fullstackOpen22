@@ -7,7 +7,7 @@ const Authors = ({ show, authors }) => {
   const [selectedOption, setSelectedOption] = useState(null)
   const [born, setBorn] = useState('')
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
-    refetchQueries: [{ query: ALL}]
+    refetchQueries: [{ query: ALL }]
   })
 
   const submit = (event) => {

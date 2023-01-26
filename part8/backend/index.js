@@ -170,10 +170,12 @@ const server = new ApolloServer({
   resolvers,
   context: async ({ req }) => {
     const auth = req ? req.headers.authorization : null
-
+    console.log('req: ', req.headers, 'auth: ', auth)
     if ( auth && auth.toLocaleLowerCase().startsWith('bearer ')) {
       const decodedToken = jwt.verify(auth.substring(7), JWT_SECRET)
-      const currentUser = await User.findById(decodedToken)
+      console.log('decodedToken: ',decodedToken)
+      const currentUser = await User.findById(decodedToken.id)
+      console.log('currentUser',currentUser)
       return { currentUser }
     }
   }
