@@ -22,7 +22,7 @@ const NewBook = ({ show }) => {
       genres
     }
     addBook({ variables: { ...newBook } })
-
+    
     setTitle('')
     setPublished('')
     setAuthor('')

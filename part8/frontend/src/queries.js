@@ -1,14 +1,15 @@
 import { gql } from "@apollo/client"
 
 export const ALL = gql`
-query {
-  allBooks {
+query($author: String, $genre: String) {
+  allBooks(author: $author, genre: $genre) {
     title
     published
     author {
       name
     }
     id
+    genres
   }
   allAuthors {
     name
@@ -18,6 +19,7 @@ query {
   }
 }
 `
+
 export const ADD_BOOK = gql`
 mutation addBook($title: String!, $published: Int!, $author: String!, $genres: [String]) {
   addBook(

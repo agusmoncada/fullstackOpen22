@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
@@ -9,10 +9,20 @@ import LoginForm from './components/Login'
 const App = () => {
   const [token, setToken ] = useState(null)
   const [page, setPage] = useState('authors')
-  const response = useQuery(ALL)
+  const [genre, setGenre] = useState(null)
+  const response = useQuery(ALL, {
+    variables: { genre }
+  })
   const client = useApolloClient()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      setToken(token)
+    }
+  }, [setToken])
   
-  console.log(response.loading, response?.data)
+  console.log(response.loading, response?.data, 'TOKEN', token)
 
   const logOut = () => {
     setToken(null)
@@ -44,9 +54,9 @@ const App = () => {
 
       <Authors show={page === 'authors'} authors={response.data?.allAuthors}/>
 
-      <Books show={page === 'books'} books={response.data?.allBooks} />
+      <Books show={page === 'books'} books={response.data?.allBooks} setGenre={setGenre}/>
 
-      <NewBook show={page === 'add'} />
+      <NewBook show={page === 'add'} setGenre={setGenre} />
     </div>
   )
 }

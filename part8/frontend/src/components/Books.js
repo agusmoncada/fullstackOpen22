@@ -1,7 +1,16 @@
-const Books = ({ show, books }) => {
+
+const Books = ({ show, books, setGenre }) => {
+
+  const submit = (event) => {
+    event.preventDefault()
+    const genre = event.target.value
+    console.log(genre)
+    setGenre(genre)
+  }
   if (!show) {
     return null
   }
+  const genres = [...new Set(books.map((b) => b.genres[0]).filter(g => g !== undefined))]
 
   return (
     <div>
@@ -23,6 +32,8 @@ const Books = ({ show, books }) => {
           ))}
         </tbody>
       </table>
+      {genres.map((g) => (<button onClick={submit} value={g} >{g}</button>) )}
+      <button onClick={() => setGenre(null)}>reset filter</button>
     </div>
   )
 }

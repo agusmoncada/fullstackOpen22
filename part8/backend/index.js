@@ -81,7 +81,7 @@ const resolvers = {
           return Book.find({ author: authorID, genre: genre }).populate('author')
       }
       if (genre) {
-          return Book.find({ genre: genre }).populate('author')
+          return Book.find({ genres: genre }).populate('author')
       }
       if (author) {
         const authorID = await Author.findOne({ name: author }).select('_id')
@@ -170,12 +170,12 @@ const server = new ApolloServer({
   resolvers,
   context: async ({ req }) => {
     const auth = req ? req.headers.authorization : null
-    console.log('req: ', req.headers, 'auth: ', auth)
+    // console.log('req: ', req.headers, 'auth: ', auth)
     if ( auth && auth.toLocaleLowerCase().startsWith('bearer ')) {
       const decodedToken = jwt.verify(auth.substring(7), JWT_SECRET)
-      console.log('decodedToken: ',decodedToken)
+      // console.log('decodedToken: ',decodedToken)
       const currentUser = await User.findById(decodedToken.id)
-      console.log('currentUser',currentUser)
+      // console.log('currentUser',currentUser)
       return { currentUser }
     }
   }
