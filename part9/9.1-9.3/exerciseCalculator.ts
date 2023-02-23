@@ -25,7 +25,7 @@ const parseDays = (args:Array<any>): Array<number> => {
     );
 };
 
-const calculateExcersices = (args: Array<number>, trgt: Array<number>): Results => {
+export const calculateExcersices = (args: Array<number>, trgt: Array<number>): Results => {
     const calcRating = (target:number, avrgHours:number) => {
         if (target > avrgHours) {
             return 1;

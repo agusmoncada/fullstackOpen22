@@ -22,6 +22,12 @@ query($author: String, $genre: String) {
 export const GENRES = gql`
 query {
   allBooks {
+    title
+    published
+    author {
+      name
+    }
+    id
     genres
   }
 }

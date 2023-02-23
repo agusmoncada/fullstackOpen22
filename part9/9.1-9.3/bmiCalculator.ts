@@ -6,7 +6,7 @@ interface Bmidata {
     height:number
 }
 
-const parseArgs = (args: Array<string>): Bmidata => {
+export const parseArgs = (args: Array<string>): Bmidata => {
     //first check the lenght of the arguments array
     if (args.length > 4) throw new Error('too many arguments punk');
     if (args.length <4) throw new Error('not enough arguments punk');

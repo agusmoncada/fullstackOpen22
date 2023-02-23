@@ -3,7 +3,7 @@ import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
 import { useApolloClient, useQuery, useSubscription } from '@apollo/client'
-import { ALL, BOOK_ADDED, ME } from './queries'
+import { ALL, BOOK_ADDED, GENRES, ME } from './queries'
 import LoginForm from './components/Login'
 import Recommend from './components/recommendations'
 
@@ -22,11 +22,11 @@ const App = () => {
       const bookAdded = data.data.bookAdded
       console.log('book added: ',bookAdded);
       
-      client.cache.updateQuery({ query: ALL }, (datas) => {
-        console.log('datas',datas)
-        return {          
-          data: datas.allBooks.concat(bookAdded),        
-        }      
+      client.cache.updateQuery({ query: GENRES }, ({ allBooks }) => {
+        //console.log('books: ', allBooks.concat(bookAdded))
+        return {
+          allBooks: allBooks.concat(bookAdded),
+        } 
       })
     }
   })
@@ -63,7 +63,7 @@ const App = () => {
     <div>
       <div>
         <button onClick={() => setPage('authors')}>authors</button>
-        <button onClick={() => setPage('books')}>books</button>
+        <button onClick={() => { setGenre(null); setPage('books') }}>books</button>
         <button onClick={() => setPage('add')}>add book</button>
         <button onClick={() => { setGenre(data.me.favouriteGenre); setPage('recommend') }}>recommend</button>
         <button onClick={logOut}>log out</button>
