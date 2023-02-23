@@ -9,10 +9,10 @@ interface Results {
 }
 
 //const args = [3, 0, 2, 4.5, 0, 3, 1];
-const target = [2, 2, 2, 2, 2, 0, 0];
+//const target = [2, 2, 2, 2, 2, 0, 0];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const parseDays = (args:Array<any>): Array<number> => {
+/*const parseDays = (args:Array<any>): Array<number> => {
     if (args.length < 3) { throw new Error('not enough values'); }
     
     const argumentsArray = args.slice(2).map(v => Number(v));
@@ -23,9 +23,9 @@ const parseDays = (args:Array<any>): Array<number> => {
     return (
         argumentsArray
     );
-};
+};*/
 
-export const calculateExcersices = (args: Array<number>, trgt: Array<number>): Results => {
+export const calculateExcersices = (args: Array<number>, target: number): Results => {
     const calcRating = (target:number, avrgHours:number) => {
         if (target > avrgHours) {
             return 1;
@@ -52,7 +52,6 @@ export const calculateExcersices = (args: Array<number>, trgt: Array<number>): R
         }
     };
 
-    const target = trgt.reduce((a,c) => a + c, 0) / args.length;
     const trainingDays = args.filter(d => d !== 0).length;
     const average = args.reduce((a,c) => a + c, 0) / args.length;
     const rating = calcRating(target, average);
@@ -72,7 +71,7 @@ export const calculateExcersices = (args: Array<number>, trgt: Array<number>): R
     );
 };
 
-try {
+/*try {
     const excercise = parseDays(process.argv);
     console.log(calculateExcersices(excercise, target));
 } catch (error: unknown) {
@@ -81,4 +80,4 @@ try {
         errorMessage += ' Error: ' + error.message;
     }
     console.log(errorMessage);
-}
+}*/
