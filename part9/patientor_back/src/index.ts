@@ -2,12 +2,11 @@ import express from 'express';
 const cors = require('cors')
 import data from '../data/diagnoses';
 import patientService from './services/patientService';
+import patientParser from './utils';
 
 const app = express();
 app.use(express.json());
 app.use(cors())
-const PORT = 3000;
-
 
 app.get('/api/ping', (_req, res) => {
     console.log('someone pinged here');
@@ -26,12 +25,21 @@ app.get('/api/patients', (_req, res) => {
 });
 
 app.post('/api/patients', (req, res) => {
-    const { name, dateOfBirth, ssn, gender, occupation } = req.body;
-    const newPatient = patientService.addPatient({ name, dateOfBirth, ssn, gender, occupation })
-    console.log('someone posted a patient', newPatient);
-    res.json(newPatient);
+    try {
+        console.log('someone posted a patient');
+        const patientToAdd = patientParser(req.body);
+        const addedPatient = patientService.addPatient(patientToAdd);
+        res.send(addedPatient);
+    } catch(error: unknown){
+        let errorMessage = 'something went wrong.';
+        if ( error instanceof Error) {
+            errorMessage += ' Error: ' + error.message;
+            res.status(400).send(errorMessage)
+        }
+    }
 });
 
+const PORT = 3003;
 app.listen(PORT, () => {
     console.log(`Server running on  port ${PORT}`);
 });

@@ -1,7 +1,6 @@
-import { Patients } from "../../types"
+import { Patients, PatientsNoSSn, NewPatient } from "../types"
 import { v1 as uuid } from 'uuid';
 import patientsData from "../../data/patients";
-import { PatientsNoSSn, NewPatient } from "../../types";
 
 const patients: PatientsNoSSn[] = patientsData;
 
